@@ -1,0 +1,25 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.31205.134
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Remetee_Challenge", "Remetee_Challenge.csproj", "{875BD3A4-C9D7-45FD-9FBE-2E6CE75FE2FC}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{875BD3A4-C9D7-45FD-9FBE-2E6CE75FE2FC}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{875BD3A4-C9D7-45FD-9FBE-2E6CE75FE2FC}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{875BD3A4-C9D7-45FD-9FBE-2E6CE75FE2FC}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{875BD3A4-C9D7-45FD-9FBE-2E6CE75FE2FC}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {FAC23E06-32EC-4303-828F-A9271CB5D478}
+	EndGlobalSection
+EndGlobal
