@@ -37,19 +37,16 @@ namespace Remetee_Challenge
 
 
            services.AddDbContext<CurrencyLayerWebClientService>(options => options.UseSqlServer(builder.ConnectionString));
-            
+
+            services.AddSingleton<IConfigurationsService, ConfigurationsService>();
             services.AddScoped< ICurrencyClientService, CurrencyLayerWebClientService>();
             services.AddScoped<ICalculator, Calculator>();
             services.AddScoped<ICurrencyWebClienteService, CurrencyWebClienteService>();
-            services.AddScoped<IConfigurationsService, ConfigurationsService>();
             services.AddScoped<IRequesProcessor, RequesProcessor>();
             services.AddScoped<ApiRequestValidator>();
             services.AddScoped<MapperCurrentLayer>();
-           
             services.AddHostedService<BackgroundExchangeRateClient>();
-
             services.AddAutoMapper(typeof(Startup));
-           
             services.AddControllers();
                     
         }

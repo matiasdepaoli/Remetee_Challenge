@@ -7,7 +7,7 @@ namespace Remetee_Challenge.Services
 {
     public interface IConfigurationsService
     {
-        //UNDONE Obtener configuracion de archivo o de la base de datos. Sacar Hardcodeo
-        int CheckUpdateTime() => 1200000;
+        int CheckUpdateTime();
+        double fee();
     }
 }

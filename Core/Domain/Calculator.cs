@@ -1,4 +1,5 @@
-﻿using Remetee_Challenge.Services;
+﻿using Remetee_Challenge.Core.Entities;
+using Remetee_Challenge.Services;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -8,30 +9,41 @@ namespace Remetee_Challenge.Domain
 {
     public class Calculator : ICalculator
     {
-        private readonly ICurrencyClientService _currencyClientService;
-        public Calculator(ICurrencyClientService currencyClientService) {
-            _currencyClientService = currencyClientService;
+        private readonly ICurrencyClientService _CurrencyClientService;
+        private readonly IConfigurationsService _ConfigurationsService;
+
+        private delegate double Del(double AmountToCalculated, double Fee, Quote quoteOrigen, Quote quoteDestino);
+        public Calculator(ICurrencyClientService currencyClientService, IConfigurationsService configurationsService) {
+            _CurrencyClientService = currencyClientService;
+            _ConfigurationsService = configurationsService;
         }
         public double MontoRequeridoParaLlegarAValorEsperado(string MonedaOrigenKey, string MonedaDestinoKey, double AmountToCalculated)
         {
-            //Todo usar metodos de extencion 
-            var UltimoRegistroObtenido =  _currencyClientService.GetCurrencyLayerResponse().Max(c => c.Id);
-            var quoteOrigen = _currencyClientService.GetQuotes().Where(q => q.CurrencyLayerId == UltimoRegistroObtenido && q.Key == MonedaOrigenKey).FirstOrDefault();
-            var quoteDestino = _currencyClientService.GetQuotes().Where(q => q.CurrencyLayerId == UltimoRegistroObtenido && q.Key == MonedaDestinoKey).FirstOrDefault();            
-
-            var Fee = 0.03;
-
-            return AmountToCalculated * (1 + Fee)/(quoteOrigen.valor * quoteDestino.valor);
+            return ReaplizarOperacion(MonedaOrigenKey, MonedaDestinoKey, AmountToCalculated, calculoMontoRequeridoParaLlegarAValorEsperado);
         }
 
-        public double ValorArecibirparaCubrirValorDestino(string MonedaOrigenKey, string MonedaDestinoKey, double AmountToCalculated)
+        public double ValorARecibirParaCubrirValorDestino(string MonedaOrigenKey, string MonedaDestinoKey, double AmountToCalculated)
         {
-            var UltimoRegistroObtenido = _currencyClientService.GetCurrencyLayerResponse().Max(c => c.Id);
-            var quoteOrigen = _currencyClientService.GetQuotes().Where(q => q.CurrencyLayerId == UltimoRegistroObtenido && q.Key == MonedaOrigenKey).FirstOrDefault();
-            var quoteDestino = _currencyClientService.GetQuotes().Where(q => q.CurrencyLayerId == UltimoRegistroObtenido && q.Key == MonedaDestinoKey).FirstOrDefault();
+            return ReaplizarOperacion(MonedaOrigenKey, MonedaDestinoKey, AmountToCalculated, CalculoValorARecibirParaCubrirValorDestino);
+        }
 
-            var Fee = 0.03;
+        private double ReaplizarOperacion(string MonedaOrigenKey, string MonedaDestinoKey, double AmountToCalculated, Del Calculador)
+        {
+            var UltimoRegistroObtenido = _CurrencyClientService.GetCurrencyLayerResponse().Max(c => c.Id);
+            var quoteOrigen = _CurrencyClientService.GetQuotes().Where(q => q.CurrencyLayerId == UltimoRegistroObtenido && q.Key == MonedaOrigenKey).FirstOrDefault();
+            var quoteDestino = _CurrencyClientService.GetQuotes().Where(q => q.CurrencyLayerId == UltimoRegistroObtenido && q.Key == MonedaDestinoKey).FirstOrDefault();
+            
+            var Fee = _ConfigurationsService.fee();
+            return Calculador(AmountToCalculated, Fee, quoteOrigen, quoteDestino);
+            
+        }
+        private double calculoMontoRequeridoParaLlegarAValorEsperado(double AmountToCalculated, double Fee, Quote quoteOrigen, Quote quoteDestino)
+        {
+            return AmountToCalculated * (1 + Fee) / (quoteOrigen.valor * quoteDestino.valor);
+        }
 
+        private double CalculoValorARecibirParaCubrirValorDestino(double AmountToCalculated, double Fee, Quote quoteOrigen, Quote quoteDestino)
+        {
             return AmountToCalculated * (1 - Fee) / (quoteOrigen.valor * quoteDestino.valor); 
         }
     }

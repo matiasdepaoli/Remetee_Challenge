@@ -1,0 +1,149 @@
+{
+	"info": {
+		"_postman_id": "7909d3ff-7eea-4e6d-960b-a1cd046c4bf0",
+		"name": "Remitee_Challenge",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Correcto_ValorRequeridoParaAlcanzarUnMontoDeceado",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "https://localhost:44330/RemiteeCalc/ValorRequeridoParaAlcanzarUnMontoDeceado?MonedaOrigenKey=USD&MonedaDestinoKey=USD&MontoAProcesar=1000",
+					"protocol": "https",
+					"host": [
+						"localhost"
+					],
+					"port": "44330",
+					"path": [
+						"RemiteeCalc",
+						"ValorRequeridoParaAlcanzarUnMontoDeceado"
+					],
+					"query": [
+						{
+							"key": "MonedaOrigenKey",
+							"value": "USD"
+						},
+						{
+							"key": "MonedaDestinoKey",
+							"value": "USD"
+						},
+						{
+							"key": "MontoAProcesar",
+							"value": "1000"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Correcto_ValorResultanteAplicandoComisiones",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "https://localhost:44330/RemiteeCalc/ValorResultanteAplicandoComisiones?MonedaOrigenKey=USD&MonedaDestinoKey=USD&MontoAProcesar=1000",
+					"protocol": "https",
+					"host": [
+						"localhost"
+					],
+					"port": "44330",
+					"path": [
+						"RemiteeCalc",
+						"ValorResultanteAplicandoComisiones"
+					],
+					"query": [
+						{
+							"key": "MonedaOrigenKey",
+							"value": "USD"
+						},
+						{
+							"key": "MonedaDestinoKey",
+							"value": "USD"
+						},
+						{
+							"key": "MontoAProcesar",
+							"value": "1000"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Error_ValorRequeridoParaAlcanzarUnMontoDeceado",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "https://localhost:44330/RemiteeCalc/ValorRequeridoParaAlcanzarUnMontoDeceado?MonedaOrigenKey=NombreMuyLargo&MonedaDestinoKey=USD&MontoAProcesar=-1000",
+					"protocol": "https",
+					"host": [
+						"localhost"
+					],
+					"port": "44330",
+					"path": [
+						"RemiteeCalc",
+						"ValorRequeridoParaAlcanzarUnMontoDeceado"
+					],
+					"query": [
+						{
+							"key": "MonedaOrigenKey",
+							"value": "NombreMuyLargo",
+							"description": "Nombre muy largo"
+						},
+						{
+							"key": "MonedaDestinoKey",
+							"value": "USD"
+						},
+						{
+							"key": "MontoAProcesar",
+							"value": "-1000",
+							"description": "Valor Inadecuado"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Error_ValorResultanteAplicandoComisiones",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "https://localhost:44330/RemiteeCalc/ValorResultanteAplicandoComisiones?MonedaOrigenKey=NombreMuyLargo&MonedaDestinoKey=USD&MontoAProcesar=-1000",
+					"protocol": "https",
+					"host": [
+						"localhost"
+					],
+					"port": "44330",
+					"path": [
+						"RemiteeCalc",
+						"ValorResultanteAplicandoComisiones"
+					],
+					"query": [
+						{
+							"key": "MonedaOrigenKey",
+							"value": "NombreMuyLargo",
+							"description": "Nombre muy largo"
+						},
+						{
+							"key": "MonedaDestinoKey",
+							"value": "USD"
+						},
+						{
+							"key": "MontoAProcesar",
+							"value": "-1000",
+							"description": "Valor Inadecuado"
+						}
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}

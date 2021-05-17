@@ -16,30 +16,35 @@ namespace Remetee_Challenge.Controllers
     [Route("[controller]")]
     public class RemiteeCalcController : ControllerBase
     {
-        private readonly IRequesProcessor _RequesProcesspr;
+        private readonly IRequesProcessor _RequesProcessor;
 
-        public RemiteeCalcController(IRequesProcessor requesProcesspr)
+        public RemiteeCalcController(IRequesProcessor requesProcessor)
         {
 
-            _RequesProcesspr = requesProcesspr;
+            _RequesProcessor = requesProcessor;
         }
         // GET: api/<RemiteeCalcController>
-        
+
+        [Route("ValorRequeridoParaAlcanzarUnMontoDeceado")]
         [HttpGet]
         public IActionResult GetValorRequeridoParaAlcanzarValorEsperado([FromQuery] ApiRequest request)
         {
-            var ApiResponse = _RequesProcesspr.ProcesRequestGetValorRequeridoParaAlcanzarValorEsperado(request);
+            var ApiResponse = _RequesProcessor.ProcesRequestGetValorRequeridoParaAlcanzarValorEsperado(request);
             if (ApiResponse.Success)
             return Ok(ApiResponse);
 
             return BadRequest(ApiResponse);
         }
 
-        //[HttpGet ("{MonedaOrigenKey, ValorRecibido, MonedaDestinoKey }")]
-        //public IActionResult GetMontoARecibirparaCubrirValorDestino(string MonedaOrigenKey, double ValorRecibido,string MonedaDestinoKey)
-        //{
-        //    return Ok(_Calculator.ValorArecibirparaCubrirValorDestino(MonedaOrigenKey, ValorRecibido, MonedaDestinoKey));
-        //}
+        [Route("ValorResultanteAplicandoComisiones")]
+        [HttpGet]
+        public IActionResult GetMontoRequeridoParaLlegarAValorEsperado([FromQuery] ApiRequest request)
+        {
+            var ApiResponse = _RequesProcessor.ProcesRequestGetMontoRequeridoParaLlegarAValorEsperado(request);
+            if (ApiResponse.Success)
+                return Ok(ApiResponse);
 
+            return BadRequest(ApiResponse);
+        }
     }
 }
